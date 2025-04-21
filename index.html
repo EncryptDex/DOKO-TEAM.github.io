@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>All File DOKO-TEAM</title>
+  <title>ALL FILE DOKO-TEAM</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
@@ -15,6 +15,11 @@
       background-color: #121212;
       border-radius: 12px;
       color: #e0e0e0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.light-mode {
+      background-color: #f9f9f9;
+      color: #222;
     }
     h1 {
       text-align: center;
@@ -22,6 +27,10 @@
       font-weight: 600;
       font-size: 2rem;
       margin-bottom: 30px;
+      transition: color 0.3s ease;
+    }
+    body.light-mode h1 {
+      color: #222;
     }
     label {
       font-weight: 600;
@@ -30,6 +39,10 @@
       margin-bottom: 10px;
       font-size: 1rem;
       color: #bbb;
+      transition: color 0.3s ease;
+    }
+    body.light-mode label {
+      color: #555;
     }
     select {
       width: 100%;
@@ -41,7 +54,12 @@
       background-color: #222;
       color: #e0e0e0;
       box-shadow: none;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    }
+    body.light-mode select {
+      border-color: #ccc;
+      background-color: #fff;
+      color: #222;
     }
     select:focus {
       outline: none;
@@ -49,6 +67,10 @@
       background-color: #2a2a2a;
       color: #f0f0f0;
       box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);
+    }
+    body.light-mode select:focus {
+      background-color: #f0f0f0;
+      color: #222;
     }
     button {
       background-color: #ef4444;
@@ -80,6 +102,11 @@
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.8);
       color: #e0e0e0;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.light-mode .profile {
+      background-color: #f0f0f0;
+      color: #222;
     }
     .profile img {
       width: 70px;
@@ -94,12 +121,20 @@
       color: #ef4444;
       font-weight: 700;
       font-size: 1.4rem;
+      transition: color 0.3s ease;
+    }
+    body.light-mode .profile-info h2 {
+      color: #b22222;
     }
     .profile-info p {
       margin: 0;
       color: #bbb;
       font-size: 0.95rem;
       line-height: 1.3;
+      transition: color 0.3s ease;
+    }
+    body.light-mode .profile-info p {
+      color: #555;
     }
 
     .download-container {
@@ -109,6 +144,12 @@
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.8);
       max-width: 100%;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.light-mode .download-container {
+      background-color: #fff;
+      color: #222;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     .traffic-light {
       position: absolute;
@@ -161,12 +202,21 @@
       font-weight: 600;
       font-size: 1rem;
       letter-spacing: 0.02em;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    body.light-mode .modal-content {
+      background-color: #f9f9f9;
+      color: #222;
     }
     .modal-content h3 {
       margin-bottom: 20px;
       font-weight: 700;
       font-size: 1.4rem;
       color: #fa8b8b;
+      transition: color 0.3s ease;
+    }
+    body.light-mode .modal-content h3 {
+      color: #c94a4a;
     }
     .modal-content input[type="password"] {
       width: 90%;
@@ -178,13 +228,22 @@
       color: #e0e0e0;
       box-shadow: none;
       margin-bottom: 12px;
-      transition: border-color 0.3s ease;
+      transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    }
+    body.light-mode .modal-content input[type="password"] {
+      border-color: #ccc;
+      background-color: #fff;
+      color: #222;
     }
     .modal-content input[type="password"]:focus {
       outline: none;
       border-color: #fa8b8b;
       box-shadow: 0 0 6px rgba(250, 139, 139, 0.5);
       background-color: #2a2a3d;
+    }
+    body.light-mode .modal-content input[type="password"]:focus {
+      background-color: #f0f0f0;
+      color: #222;
     }
     .modal-buttons {
       display: flex;
@@ -224,164 +283,260 @@
       font-size: 0.95rem;
       letter-spacing: 0.01em;
     }
-  </style>
-</head>
-<body>
-  <div class="profile">
-    <img src="profile.png" alt="Profile" />
-    <div class="profile-info" style="font-size: 2rem; font-weight: 700; color: #bb3030;">
-      DOKO - TEAM
-    </div>
-  </div>
 
-  <h1>Download Files</h1>
-  <div class="download-container">
-    <div class="traffic-light">
-      <span class="red"></span>
-      <span class="yellow"></span>
-      <span class="green"></span>
-    </div>
-    <div style="font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; text-align: right;">
-      Free Fire Modified by DOKO
-    </div>
-    <label for="fileSelect">Select a file to download:</label>
-    <select id="fileSelect" aria-label="Select a file to download">
-      <option value="" disabled selected>-- Choose a file --</option>
-      <option value="https://download2391.mediafire.com/xltngcnf8dqgL3U2Ilryz_E0rBy5RJPbBSlKA9B7eQZgXP_GiDGpLa9v6FVnMJtaLFZ8Jx3xDdkJNDAMp2X6kk_2kinVEuYuf4eQ6J2edjLVpAgl7QvaUm2WnJUAW2w6DsEZF_FpqXiH7yBcHh54oAbgX4MIuBQsGv606ZNJpgE/54viqkxvddn2h99/Free+Fire+1.109.1+DOKO_Team.xapk">Free Fire N32 &amp; P64 OB48 🟢</option>
-      <option value="https://download1531.mediafire.com/m20eyfr4f5vgS6dscCEclJ982rdCZJjgIk6vylifq_QJRgenWs6Q3cyhLzPLKWJlyz0njrjZMzLThuj3cjuezlQM9syq1TSQ8pD4lVzy4IC__LL4xPWvaAQYw8sTGt2UYbniVgOxLmsK1ggzhINs3IWK9t2EtSczExAYb_A3avs/ytajqsgpbzw94jo/Free+Fire+MAX+2.109.1_DOKOTeam.xapk">Free Fire MAX N32 &amp; P64 🟢</option>
-      <option value="https://download2267.mediafire.com/gn8cnwlix3qgb6BELF9WHqUf7l2tUNoFEqzevAxWBrNIOsCY-ygKr3biHj4ZBSobN5ntqVCdKf5iX-0N33ZnFpBJHeG3kqTknneyvNJjfxNjaEr_2_KBYtkLrtuEEmr_EPLK1ryB7L-AQHWmwLMHyL0lKzYMih3jNlXvgf7Ga44/7u1xff1cvxr6jsm/PASSWORD_1.zip">Panel PC External 👑</option>
-    </select>
-    <button id="downloadBtn" disabled aria-disabled="true" aria-label="Download selected file">Download</button>
-  </div>
-
-  <div id="passwordModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
-    <div class="modal-content">
-      <h3 id="modalTitle">Enter Password to Download</h3>
-      <small style="display: block; margin-bottom: 8px; color: #bbb; font-size: 0.8rem;">DOKO PRODUCT</small>
-      <input type="password" id="passwordInput" placeholder="Password" aria-describedby="passwordError" />
-      <div id="passwordError" class="error-message" role="alert" aria-live="assertive"></div>
-      <div class="modal-buttons">
-        <button id="passwordSubmit">Submit</button>
-        <button id="passwordCancel">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const fileSelect = document.getElementById('fileSelect');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const passwordModal = document.getElementById('passwordModal');
-    const passwordInput = document.getElementById('passwordInput');
-    const passwordSubmit = document.getElementById('passwordSubmit');
-    const passwordCancel = document.getElementById('passwordCancel');
-    const passwordError = document.getElementById('passwordError');
-
-    let selectedFileUrl = '';
-
-    fileSelect.addEventListener('change', () => {
-      const hasValue = fileSelect.value !== '';
-      downloadBtn.disabled = !hasValue;
-      downloadBtn.setAttribute('aria-disabled', !hasValue);
-    });
-
-    downloadBtn.addEventListener('click', () => {
-      if (fileSelect.value) {
-        selectedFileUrl = fileSelect.value;
-        passwordInput.value = '';
-        passwordError.textContent = '';
-        passwordModal.classList.add('show');
-        passwordInput.focus();
-      }
-    });
-
-    // Function to send webhook notification with IP address as identity
-    function sendWebhook(fileName) {
-      console.log('sendWebhook called with file:', fileName);
-      const webhookUrl = 'https://discord.com/api/webhooks/1363897994881012033/i41EOtRIu7vIrqXTUD3xudf8pPeKFNI3SJBkyIwO7_0XUxWReKTM_9fA_KXNj3sx-xyF';
-      const now = new Date();
-      const pad = (n) => n.toString().padStart(2, '0');
-      const formattedTime = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} | ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-
-      // Fetch user's IP address from public API
-      fetch('https://api.ipify.org?format=json')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to fetch IP address');
-          }
-          return response.json();
-        })
-        .then(data => {
-          const userIdentity = data.ip || 'Unknown User';
-          const payload = {
-            content: null,
-            embeds: [
-              {
-                title: "DOKO-TEAM | Raid",
-                description: `**File :** ${fileName}\n**Identitas :** ${userIdentity}\n**Time :** ${formattedTime}`,
-                color: 14685461
-              }
-            ],
-            attachments: []
-          };
-          return fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-          });
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to send webhook');
-          }
-          console.log('Webhook sent successfully');
-        })
-        .catch(error => {
-          console.error('Error in sendWebhook:', error);
-          alert('Error sending webhook: ' + error.message);
-        });
+    /* New styles for dark/light mode toggle */
+    #modeToggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: inherit;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      transition: color 0.3s ease;
+    }
+    #modeToggle:hover {
+      color: #b91c1c;
     }
 
-    passwordSubmit.addEventListener('click', () => {
-      // Check password based on selected file
-      if (fileSelect.options[fileSelect.selectedIndex].text === 'Panel PC External 👑') {
-        if (passwordInput.value === '1812') {
-          passwordModal.classList.remove('show');
-          sendWebhook(fileSelect.options[fileSelect.selectedIndex].text);
-          window.open(selectedFileUrl, '_blank');
-        } else {
-          passwordError.textContent = 'Incorrect password. Access denied.';
-        }
-      } else {
-        if (passwordInput.value === '1') {
-          passwordModal.classList.remove('show');
-          sendWebhook(fileSelect.options[fileSelect.selectedIndex].text);
-          window.open(selectedFileUrl, '_blank');
-        } else {
-          passwordError.textContent = 'Incorrect password. Access denied.';
-        }
+    /* Animations */
+    .modal.show {
+      animation: fadeIn 0.3s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    button:not(:disabled) {
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    button:not(:disabled):hover {
+      transform: scale(1.05);
+    }
+  </style>
+  </head>
+  <body>
+    <div class="profile">
+      <img src="profile.png" alt="Profile" />
+      <div class="profile-info" style="font-size: 2rem; font-weight: 700; color: #bb3030; position: relative; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        DOKO - TEAM
+      </div>
+      <button id="modeToggle" aria-label="Toggle dark/light mode" style="position: fixed; bottom: 15px; left: 15px; background: none; border: none; cursor: pointer; color: inherit; font-size: 1.8rem; display: flex; align-items: center; padding: 0; z-index: 1000;">
+        <span id="modeIcon" style="pointer-events: none;">🌙</span>
+      </button>
+    </div>
+
+    <h1>Download Files</h1>
+    <div class="download-container" role="main">
+      <div class="traffic-light" aria-hidden="true">
+        <span class="red"></span>
+        <span class="yellow"></span>
+        <span class="green"></span>
+      </div>
+      <div style="font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; text-align: right;">
+        Free Fire Modified by DOKO
+      </div>
+      <label for="fileSelect">Select a file to download:</label>
+      <select id="fileSelect" aria-label="Select a file to download" aria-required="true">
+        <option value="" disabled selected>-- Choose a file --</option>
+        <option value="https://download2391.mediafire.com/xltngcnf8dqgL3U2Ilryz_E0rBy5RJPbBSlKA9B7eQZgXP_GiDGpLa9v6FVnMJtaLFZ8Jx3xDdkJNDAMp2X6kk_2kinVEuYuf4eQ6J2edjLVpAgl7QvaUm2WnJUAW2w6DsEZF_FpqXiH7yBcHh54oAbgX4MIuBQsGv606ZNJpgE/54viqkxvddn2h99/Free+Fire+1.109.1+DOKO_Team.xapk">Free Fire N32 &amp; P64 OB48 🟢</option>
+        <option value="https://download1531.mediafire.com/m20eyfr4f5vgS6dscCEclJ982rdCZJjgIk6vylifq_QJRgenWs6Q3cyhLzPLKWJlyz0njrjZMzLThuj3cjuezlQM9syq1TSQ8pD4lVzy4IC__LL4xPWvaAQYw8sTGt2UYbniVgOxLmsK1ggzhINs3IWK9t2EtSczExAYb_A3avs/ytajqsgpbzw94jo/Free+Fire+MAX+2.109.1_DOKOTeam.xapk">Free Fire MAX N32 &amp; P64 🟢</option>
+        <option value="https://download2267.mediafire.com/gn8cnwlix3qgb6BELF9WHqUf7l2tUNoFEqzevAxWBrNIOsCY-ygKr3biHj4ZBSobN5ntqVCdKf5iX-0N33ZnFpBJHeG3kqTknneyvNJjfxNjaEr_2_KBYtkLrtuEEmr_EPLK1ryB7L-AQHWmwLMHyL0lKzYMih3jNlXvgf7Ga44/7u1xff1cvxr6jsm/PASSWORD_1.zip">Panel PC External 👑</option>
+      </select>
+      <button id="downloadBtn" disabled aria-disabled="true" aria-label="Download selected file">Download</button>
+      <div id="downloadMessage" role="alert" aria-live="polite" style="margin-top: 12px; font-weight: 600;"></div>
+    </div>
+
+    <div id="passwordModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+      <div class="modal-content">
+        <h3 id="modalTitle">Enter Password to Download</h3>
+        <small style="display: block; margin-bottom: 8px; color: #bbb; font-size: 0.8rem;">DOKO PRODUCT</small>
+        <input type="password" id="passwordInput" placeholder="Password" aria-describedby="passwordError" />
+        <div id="passwordError" class="error-message" role="alert" aria-live="assertive"></div>
+        <div class="modal-buttons">
+          <button id="passwordSubmit">Submit</button>
+          <button id="passwordCancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const fileSelect = document.getElementById('fileSelect');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const downloadMessage = document.getElementById('downloadMessage');
+      const passwordModal = document.getElementById('passwordModal');
+      const passwordInput = document.getElementById('passwordInput');
+      const passwordSubmit = document.getElementById('passwordSubmit');
+      const passwordCancel = document.getElementById('passwordCancel');
+      const passwordError = document.getElementById('passwordError');
+      const modeToggle = document.getElementById('modeToggle');
+
+      let selectedFileUrl = '';
+
+      // Load mode preference from localStorage
+      if (localStorage.getItem('mode') === 'light') {
+        document.body.classList.add('light-mode');
       }
-    });
 
-    passwordCancel.addEventListener('click', () => {
-      passwordModal.classList.remove('show');
-    });
+  const modeIcon = document.getElementById('modeIcon');
 
-    window.addEventListener('click', (e) => {
-      if (e.target === passwordModal) {
+  function updateModeIcon() {
+    if (document.body.classList.contains('light-mode')) {
+      modeIcon.textContent = '☀️'; // Sun icon for light mode
+    } else {
+      modeIcon.textContent = '🌙'; // Moon icon for dark mode
+    }
+  }
+
+  updateModeIcon();
+
+  modeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    updateModeIcon();
+    if (document.body.classList.contains('light-mode')) {
+      localStorage.setItem('mode', 'light');
+    } else {
+      localStorage.setItem('mode', 'dark');
+    }
+  });
+
+      fileSelect.addEventListener('change', () => {
+        const hasValue = fileSelect.value !== '';
+        downloadBtn.disabled = !hasValue;
+        downloadBtn.setAttribute('aria-disabled', !hasValue);
+        downloadMessage.textContent = '';
+      });
+
+      downloadBtn.addEventListener('click', () => {
+        if (fileSelect.value) {
+          selectedFileUrl = fileSelect.value;
+          passwordInput.value = '';
+          passwordError.textContent = '';
+          downloadMessage.textContent = '';
+          passwordModal.classList.add('show');
+          passwordInput.focus();
+        }
+      });
+
+      // Function to send webhook notification with IP address as identity
+      function sendWebhook(fileName) {
+        console.log('sendWebhook called with file:', fileName);
+        const webhookUrl = 'https://discord.com/api/webhooks/1363897994881012033/i41EOtRIu7vIrqXTUD3xudf8pPeKFNI3SJBkyIwO7_0XUxWReKTM_9fA_KXNj3sx-xyF';
+        const now = new Date();
+        const pad = (n) => n.toString().padStart(2, '0');
+        const formattedTime = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()} | ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+
+        // Show loading message
+        downloadMessage.textContent = 'Sending download info...';
+
+        // Fetch user's IP address from public API
+        return fetch('https://api.ipify.org?format=json')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Failed to fetch IP address');
+            }
+            return response.json();
+          })
+          .then(data => {
+            const userIdentity = data.ip || 'Unknown User';
+            const payload = {
+              content: null,
+              embeds: [
+                {
+                  title: "DOKO-TEAM | Raid",
+                  description: `**File :** ${fileName}\n**Identitas :** ${userIdentity}\n**Time :** ${formattedTime}`,
+                  color: 14685461
+                }
+              ],
+              attachments: []
+            };
+            return fetch(webhookUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(payload)
+            });
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Failed to send webhook');
+            }
+            console.log('Webhook sent successfully');
+            downloadMessage.textContent = 'Download info sent successfully.';
+          })
+          .catch(error => {
+            console.error('Error in sendWebhook:', error);
+            downloadMessage.textContent = 'Error sending download info.';
+            alert('Error sending webhook: ' + error.message);
+          });
+      }
+
+      passwordSubmit.addEventListener('click', () => {
+        // Check password based on selected file
+        if (fileSelect.options[fileSelect.selectedIndex].text === 'Panel PC External 👑') {
+          if (passwordInput.value === '1812') {
+            passwordModal.classList.remove('show');
+            sendWebhook(fileSelect.options[fileSelect.selectedIndex].text).then(() => {
+              window.open(selectedFileUrl, '_blank');
+            });
+          } else {
+            passwordError.textContent = 'Incorrect password. Access denied.';
+          }
+        } else {
+          if (passwordInput.value === '1') {
+            passwordModal.classList.remove('show');
+            sendWebhook(fileSelect.options[fileSelect.selectedIndex].text).then(() => {
+              window.open(selectedFileUrl, '_blank');
+            });
+          } else {
+            passwordError.textContent = 'Incorrect password. Access denied.';
+          }
+        }
+      });
+
+      passwordCancel.addEventListener('click', () => {
         passwordModal.classList.remove('show');
-      }
-    });
+      });
 
-    passwordInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        passwordSubmit.click();
-      }
-    });
+      window.addEventListener('click', (e) => {
+        if (e.target === passwordModal) {
+          passwordModal.classList.remove('show');
+        }
+      });
+
+      passwordInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          passwordSubmit.click();
+        }
+      });
   </script>
   <footer style="margin-top: 40px; text-align: center; color: #bbb; font-size: 0.9rem; font-family: 'Poppins', sans-serif;">
     <p>This website allows users to securely download files by selecting from available options and entering a password for access.</p>
+    <p><a href="#privacyPolicy" style="color: #ef4444; text-decoration: none;">Privacy Policy</a> | <a href="#contact" style="color: #ef4444; text-decoration: none;">Contact</a></p>
   </footer>
+
+  <section id="privacyPolicy" style="max-width: 700px; margin: 40px auto; padding: 20px; background-color: #222; border-radius: 12px; color: #e0e0e0;">
+    <h2>Privacy Policy</h2>
+    <p>Your privacy is important to us. We do not store your personal data except for the IP address used for download logging, which is sent securely to our Discord webhook for monitoring purposes only.</p>
+  </section>
+
+  <section id="contact" style="max-width: 700px; margin: 40px auto; padding: 20px; background-color: #222; border-radius: 12px; color: #e0e0e0;">
+    <h2>Contact</h2>
+    <p>If you have any questions or need support, please contact us at <a href="mailto:support@doko-team.com" style="color: #ef4444;">support@doko-team.com</a>.</p>
+  </section>
+
+  <style>
+    body.light-mode #privacyPolicy,
+    body.light-mode #contact {
+      background-color: #f9f9f9 !important;
+      color: #222 !important;
+    }
+    body.light-mode #privacyPolicy a,
+    body.light-mode #contact a {
+      color: #b22222 !important;
+    }
+  </style>
 </body>
 </html>
