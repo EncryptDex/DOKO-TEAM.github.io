@@ -296,6 +296,7 @@
 
     // Function to send webhook notification with IP address as identity
     function sendWebhook(fileName) {
+      console.log('sendWebhook called with file:', fileName);
       const webhookUrl = 'https://discord.com/api/webhooks/1363897994881012033/i41EOtRIu7vIrqXTUD3xudf8pPeKFNI3SJBkyIwO7_0XUxWReKTM_9fA_KXNj3sx-xyF';
       const now = new Date();
       const pad = (n) => n.toString().padStart(2, '0');
@@ -303,7 +304,12 @@
 
       // Fetch user's IP address from public API
       fetch('https://api.ipify.org?format=json')
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to fetch IP address');
+          }
+          return response.json();
+        })
         .then(data => {
           const userIdentity = data.ip || 'Unknown User';
           const payload = {
@@ -317,35 +323,23 @@
             ],
             attachments: []
           };
-          fetch(webhookUrl, {
+          return fetch(webhookUrl, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
-          }).catch(console.error);
+          });
         })
-        .catch(() => {
-          // Fallback if IP fetch fails
-          const userIdentity = 'Unknown User';
-          const payload = {
-            content: null,
-            embeds: [
-              {
-                title: "DOKO-TEAM | Raid",
-                description: `**File :** ${fileName}\n**Identitas :** ${userIdentity}\n**Time :** ${formattedTime}`,
-                color: 14685461
-              }
-            ],
-            attachments: []
-          };
-          fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-          }).catch(console.error);
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to send webhook');
+          }
+          console.log('Webhook sent successfully');
+        })
+        .catch(error => {
+          console.error('Error in sendWebhook:', error);
+          alert('Error sending webhook: ' + error.message);
         });
     }
 
