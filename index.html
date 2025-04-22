@@ -329,11 +329,6 @@
 
     <h1>Download Files</h1>
     <div class="download-container" role="main">
-      <div class="traffic-light" aria-hidden="true">
-        <span class="red"></span>
-        <span class="yellow"></span>
-        <span class="green"></span>
-      </div>
       <div style="font-size: 1.5rem; font-weight: 700; color: #ffffff; margin-bottom: 10px; text-align: right;">
         Free Fire Modified by DOKO
       </div>
@@ -342,7 +337,7 @@
         <option value="" disabled selected>-- Choose a file --</option>
         <option value="https://download2391.mediafire.com/xltngcnf8dqgL3U2Ilryz_E0rBy5RJPbBSlKA9B7eQZgXP_GiDGpLa9v6FVnMJtaLFZ8Jx3xDdkJNDAMp2X6kk_2kinVEuYuf4eQ6J2edjLVpAgl7QvaUm2WnJUAW2w6DsEZF_FpqXiH7yBcHh54oAbgX4MIuBQsGv606ZNJpgE/54viqkxvddn2h99/Free+Fire+1.109.1+DOKO_Team.xapk">Free Fire N32 &amp; P64 OB48 🟢</option>
         <option value="https://download1531.mediafire.com/m20eyfr4f5vgS6dscCEclJ982rdCZJjgIk6vylifq_QJRgenWs6Q3cyhLzPLKWJlyz0njrjZMzLThuj3cjuezlQM9syq1TSQ8pD4lVzy4IC__LL4xPWvaAQYw8sTGt2UYbniVgOxLmsK1ggzhINs3IWK9t2EtSczExAYb_A3avs/ytajqsgpbzw94jo/Free+Fire+MAX+2.109.1_DOKOTeam.xapk">Free Fire MAX N32 &amp; P64 🟢</option>
-        <option value="https://download2267.mediafire.com/gn8cnwlix3qgb6BELF9WHqUf7l2tUNoFEqzevAxWBrNIOsCY-ygKr3biHj4ZBSobN5ntqVCdKf5iX-0N33ZnFpBJHeG3kqTknneyvNJjfxNjaEr_2_KBYtkLrtuEEmr_EPLK1ryB7L-AQHWmwLMHyL0lKzYMih3jNlXvgf7Ga44/7u1xff1cvxr6jsm/PASSWORD_1.zip">Panel PC External 👑</option>
+        <option value="https://download2302.mediafire.com/gehk01tgrtjg4DS3-PMRD6sOzAxVrBIMukZ_bq0gNHxKwj__73Z5LHCCPYHJPiU1qLNsUvtZTy4rVY6CdEHNTSBzddP-akcS0_mi11FavBLfIPro3-qY7Cen2PK99KG2C1DKKh4bzBjzMLN6kgP2NqqTn7G_uoBPtAURt-gVNiM/7u1xff1cvxr6jsm/PASSWORD_1.zip">Panel PC External 👑</option>
       </select>
       <button id="downloadBtn" disabled aria-disabled="true" aria-label="Download selected file">Download</button>
       <div id="downloadMessage" role="alert" aria-live="polite" style="margin-top: 12px; font-weight: 600;"></div>
@@ -353,6 +348,13 @@
         <h3 id="modalTitle">Enter Password to Download</h3>
         <small style="display: block; margin-bottom: 8px; color: #bbb; font-size: 0.8rem;">DOKO PRODUCT</small>
         <input type="password" id="passwordInput" placeholder="Password" aria-describedby="passwordError" />
+        <div id="buyerInfo" style="display:none; margin-top: 8px; font-weight: 700; color: #fa8b8b; text-align: left; white-space: pre-line;"></div>
+        <div id="tokenBox" style="display:none; margin-top: 8px; font-weight: 700; color: #fa8b8b; text-align: center; font-family: monospace;">
+          <div>Your License:</div>
+          <div style="border: 2px solid #fa8b8b; border-radius: 6px; padding: 8px 0; margin-top: 4px; width: 150px; margin-left: auto; margin-right: auto; letter-spacing: 4px; font-size: 1.2rem; user-select: all;" id="tokenValue"></div>
+        </div>
+        <img id="qrisImage" src="qris.png" alt="QRIS Payment" style="display:none; max-width: 300px; margin-top: 10px; border-radius: 8px;" />
+        <div id="paymentStatus" style="display:none; margin-top: 8px; font-weight: 600; color: #fa8b8b;">Payment Status: Pending</div>
         <div id="passwordError" class="error-message" role="alert" aria-live="assertive"></div>
         <div class="modal-buttons">
           <button id="passwordSubmit">Submit</button>
@@ -406,6 +408,24 @@
         downloadBtn.disabled = !hasValue;
         downloadBtn.setAttribute('aria-disabled', !hasValue);
         downloadMessage.textContent = '';
+
+        // Change button text and modal title based on selection
+        const selectedText = fileSelect.options[fileSelect.selectedIndex].text;
+        const modalTitle = document.getElementById('modalTitle');
+        const qrisImage = document.getElementById('qrisImage');
+        const paymentStatus = document.getElementById('paymentStatus');
+
+        if (selectedText === 'Panel PC External 👑') {
+          downloadBtn.textContent = 'Pay';
+          modalTitle.textContent = 'Pay For Panel PC External';
+          qrisImage.style.display = 'block';
+          paymentStatus.style.display = 'block';
+        } else {
+          downloadBtn.textContent = 'Download';
+          modalTitle.textContent = 'Enter Password to Download';
+          qrisImage.style.display = 'none';
+          paymentStatus.style.display = 'none';
+        }
       });
 
       downloadBtn.addEventListener('click', () => {
@@ -414,10 +434,53 @@
           passwordInput.value = '';
           passwordError.textContent = '';
           downloadMessage.textContent = '';
-          passwordModal.classList.add('show');
-          passwordInput.focus();
+
+          // Ensure modal title and qris image visibility are correct on button click
+          const selectedText = fileSelect.options[fileSelect.selectedIndex].text;
+          const modalTitle = document.getElementById('modalTitle');
+          const qrisImage = document.getElementById('qrisImage');
+          const paymentStatus = document.getElementById('paymentStatus');
+          const buyerInfo = document.getElementById('buyerInfo');
+
+        if (selectedText === 'Panel PC External 👑') {
+          modalTitle.textContent = 'Pay For Panel PC External';
+          qrisImage.style.display = 'block';
+          paymentStatus.style.display = 'block';
+
+          // Generate random buyer ID
+          const randomId = Math.floor(1000000000 + Math.random() * 9000000000);
+          buyerInfo.textContent = `Buyer : \nID:${randomId}`;
+          buyerInfo.style.display = 'block';
+
+          // Generate random token and display
+          const randomToken = generateRandomToken(5);
+          const tokenBox = document.getElementById('tokenBox');
+          const tokenValue = document.getElementById('tokenValue');
+          tokenValue.textContent = '';
+          tokenBox.style.display = 'block';
+        } else {
+          modalTitle.textContent = 'Enter Password to Download';
+          qrisImage.style.display = 'none';
+          paymentStatus.style.display = 'none';
+          buyerInfo.style.display = 'none';
+          const tokenBox = document.getElementById('tokenBox');
+          tokenBox.style.display = 'none';
         }
-      });
+
+        passwordModal.classList.add('show');
+        passwordInput.focus();
+      }
+    });
+
+    // Function to generate random token string
+    function generateRandomToken(length) {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let token = '';
+      for (let i = 0; i < length; i++) {
+        token += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return token;
+    }
 
       // Function to send webhook notification with IP address as identity
       function sendWebhook(fileName) {
@@ -474,17 +537,20 @@
       }
 
       passwordSubmit.addEventListener('click', () => {
-        // Check password based on selected file
+        // Check password or license based on selected file
         if (fileSelect.options[fileSelect.selectedIndex].text === 'Panel PC External 👑') {
-          if (passwordInput.value === '1812') {
+          // License key validation for Panel PC External
+          const validLicenses = ['LICENSE-12345', 'LICENSE-67890', 'LICENSE-ABCDE']; // Example license keys
+          if (validLicenses.includes(passwordInput.value)) {
             passwordModal.classList.remove('show');
             sendWebhook(fileSelect.options[fileSelect.selectedIndex].text).then(() => {
               window.open(selectedFileUrl, '_blank');
             });
           } else {
-            passwordError.textContent = 'Incorrect password. Access denied.';
+            passwordError.textContent = 'Invalid license key. Access denied.';
           }
         } else {
+          // Password validation for other files
           if (passwordInput.value === '1') {
             passwordModal.classList.remove('show');
             sendWebhook(fileSelect.options[fileSelect.selectedIndex].text).then(() => {
