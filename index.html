@@ -347,6 +347,11 @@
       </div>
     </div>
 
+    <section id="recentDownloads" style="margin-top: 30px; background-color: #222; padding: 20px; border-radius: 12px; color: #e0e0e0; max-width: 700px; box-shadow: 0 4px 12px rgba(0,0,0,0.8); transition: background-color 0.3s ease, color 0.3s ease;">
+      <h2 style="font-weight: 700; margin-bottom: 15px; color: #ef4444;">Recent Downloads</h2>
+      <ul id="recentDownloadsList" style="list-style: none; padding-left: 0; max-height: 200px; overflow-y: auto;"></ul>
+    </section>
+
     <script>
       const fileSelect = document.getElementById('fileSelect');
       const downloadBtn = document.getElementById('downloadBtn');
@@ -356,12 +361,27 @@
       const passwordSubmit = document.getElementById('passwordSubmit');
       const passwordCancel = document.getElementById('passwordCancel');
       const passwordError = document.getElementById('passwordError');
+      const recentDownloadsList = document.getElementById('recentDownloadsList');
       let selectedFileUrl = '';
 
       // Load mode preference from localStorage
       if (localStorage.getItem('mode') === 'light') {
         document.body.classList.add('light-mode');
       }
+
+      // Load recent downloads from localStorage
+      let recentDownloads = JSON.parse(localStorage.getItem('recentDownloads') || '[]');
+      function renderRecentDownloads() {
+        recentDownloadsList.innerHTML = '';
+        recentDownloads.forEach(item => {
+          const li = document.createElement('li');
+          li.style.padding = '6px 0';
+          li.style.borderBottom = '1px solid #444';
+          li.textContent = `${item.name} - ${item.time}`;
+          recentDownloadsList.appendChild(li);
+        });
+      }
+      renderRecentDownloads();
 
       fileSelect.addEventListener('change', () => {
         const hasValue = fileSelect.value !== '';
@@ -402,45 +422,45 @@
           const paymentStatus = document.getElementById('paymentStatus');
           const buyerInfo = document.getElementById('buyerInfo');
 
-        if (selectedText === 'Panel PC External 👑') {
-          modalTitle.textContent = 'Pay For Panel PC External';
-          qrisImage.style.display = 'block';
-          paymentStatus.style.display = 'block';
+          if (selectedText === 'Panel PC External 👑') {
+            modalTitle.textContent = 'Pay For Panel PC External';
+            qrisImage.style.display = 'block';
+            paymentStatus.style.display = 'block';
 
-          // Generate random buyer ID
-          const randomId = Math.floor(1000000000 + Math.random() * 9000000000);
-          buyerInfo.textContent = `Buyer : \nID:${randomId}`;
-          buyerInfo.style.display = 'block';
+            // Generate random buyer ID
+            const randomId = Math.floor(1000000000 + Math.random() * 9000000000);
+            buyerInfo.textContent = `Buyer : \nID:${randomId}`;
+            buyerInfo.style.display = 'block';
 
-          // Generate random token and display
-          const randomToken = generateRandomToken(5);
-          const tokenBox = document.getElementById('tokenBox');
-          const tokenValue = document.getElementById('tokenValue');
-          tokenValue.textContent = '';
-          tokenBox.style.display = 'block';
-        } else {
-          modalTitle.textContent = 'Enter Password to Download';
-          qrisImage.style.display = 'none';
-          paymentStatus.style.display = 'none';
-          buyerInfo.style.display = 'none';
-          const tokenBox = document.getElementById('tokenBox');
-          tokenBox.style.display = 'none';
+            // Generate random token and display
+            const randomToken = generateRandomToken(5);
+            const tokenBox = document.getElementById('tokenBox');
+            const tokenValue = document.getElementById('tokenValue');
+            tokenValue.textContent = '';
+            tokenBox.style.display = 'block';
+          } else {
+            modalTitle.textContent = 'Enter Password to Download';
+            qrisImage.style.display = 'none';
+            paymentStatus.style.display = 'none';
+            buyerInfo.style.display = 'none';
+            const tokenBox = document.getElementById('tokenBox');
+            tokenBox.style.display = 'none';
+          }
+
+          passwordModal.classList.add('show');
+          passwordInput.focus();
         }
+      });
 
-        passwordModal.classList.add('show');
-        passwordInput.focus();
+      // Function to generate random token string
+      function generateRandomToken(length) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let token = '';
+        for (let i = 0; i < length; i++) {
+          token += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return token;
       }
-    });
-
-    // Function to generate random token string
-    function generateRandomToken(length) {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let token = '';
-      for (let i = 0; i < length; i++) {
-        token += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return token;
-    }
 
       // List of common Indonesian names for username generation
       const indonesianNames = [
@@ -519,6 +539,7 @@
           const validLicenses = ['LICENSE-12345', 'LICENSE-67890', 'LICENSE-ABCDE']; // Example license keys
           if (validLicenses.includes(passwordInput.value)) {
             passwordModal.classList.remove('show');
+            addRecentDownload(fileSelect.options[fileSelect.selectedIndex].text);
             sendWebhook(fileSelect.options[fileSelect.selectedIndex].text).then(() => {
               window.open(selectedFileUrl, '_blank');
             });
@@ -529,6 +550,7 @@
           // Password validation for other files
           if (passwordInput.value === '1') {
             passwordModal.classList.remove('show');
+            addRecentDownload(fileSelect.options[fileSelect.selectedIndex].text);
             sendWebhook(fileSelect.options[fileSelect.selectedIndex].text).then(() => {
               window.open(selectedFileUrl, '_blank');
             });
@@ -553,6 +575,18 @@
           passwordSubmit.click();
         }
       });
+
+      // Add a recent download entry and update localStorage
+      function addRecentDownload(fileName) {
+        const now = new Date();
+        const timeString = now.toLocaleString();
+        recentDownloads.unshift({ name: fileName, time: timeString });
+        if (recentDownloads.length > 10) {
+          recentDownloads.pop();
+        }
+        localStorage.setItem('recentDownloads', JSON.stringify(recentDownloads));
+        renderRecentDownloads();
+      }
   </script>
   <footer style="margin-top: 40px; text-align: center; color: #bbb; font-size: 0.9rem; font-family: 'Poppins', sans-serif;">
     <p>This website allows users to securely download files by selecting from available options and entering a password for access.</p>
