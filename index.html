@@ -187,26 +187,6 @@
       justify-content: center;
       align-items: center;
     }
-
-    /* Animated red to black gradient background for login and signup modals */
-    #loginModal.show, #signupModal.show {
-      background: linear-gradient(270deg, rgba(239, 68, 68, 0.7), rgba(0, 0, 0, 0.7), rgba(239, 68, 68, 0.7));
-      background-size: 600% 600%;
-      animation: gradientShift 20s ease-in-out infinite;
-      background-blend-mode: overlay;
-    }
-
-    @keyframes gradientShift {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
     .modal.show {
       display: flex;
     }
@@ -223,27 +203,10 @@
       font-size: 1rem;
       letter-spacing: 0.02em;
       transition: background-color 0.3s ease, color 0.3s ease;
-      position: relative;
-      overflow: hidden;
     }
     body.light-mode .modal-content {
       background-color: #f9f9f9;
       color: #222;
-    }
-    .modal-content::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 250px;
-      height: 250px;
-      background: url('profile.png') no-repeat center center;
-      background-size: contain;
-      opacity: 0.15;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 0;
-      border-radius: 12px;
     }
     .modal-content h3 {
       margin-bottom: 20px;
