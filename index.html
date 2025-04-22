@@ -284,21 +284,7 @@
       letter-spacing: 0.01em;
     }
 
-    /* New styles for dark/light mode toggle */
-    #modeToggle {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: inherit;
-      font-size: 1.8rem;
-      display: flex;
-      align-items: center;
-      padding: 0;
-      transition: color 0.3s ease;
-    }
-    #modeToggle:hover {
-      color: #b91c1c;
-    }
+    
 
     /* Animations */
     .modal.show {
@@ -322,9 +308,7 @@
       <div class="profile-info" style="font-size: 2rem; font-weight: 700; color: #bb3030; position: relative; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
         DOKO - TEAM
       </div>
-      <button id="modeToggle" aria-label="Toggle dark/light mode" style="position: fixed; bottom: 15px; left: 15px; background: none; border: none; cursor: pointer; color: inherit; font-size: 1.8rem; display: flex; align-items: center; padding: 0; z-index: 1000;">
-        <span id="modeIcon" style="pointer-events: none;">🌙</span>
-      </button>
+      
     </div>
 
     <h1>Download Files</h1>
@@ -372,36 +356,12 @@
       const passwordSubmit = document.getElementById('passwordSubmit');
       const passwordCancel = document.getElementById('passwordCancel');
       const passwordError = document.getElementById('passwordError');
-      const modeToggle = document.getElementById('modeToggle');
-
       let selectedFileUrl = '';
 
       // Load mode preference from localStorage
       if (localStorage.getItem('mode') === 'light') {
         document.body.classList.add('light-mode');
       }
-
-  const modeIcon = document.getElementById('modeIcon');
-
-  function updateModeIcon() {
-    if (document.body.classList.contains('light-mode')) {
-      modeIcon.textContent = '☀️'; // Sun icon for light mode
-    } else {
-      modeIcon.textContent = '🌙'; // Moon icon for dark mode
-    }
-  }
-
-  updateModeIcon();
-
-  modeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
-    updateModeIcon();
-    if (document.body.classList.contains('light-mode')) {
-      localStorage.setItem('mode', 'light');
-    } else {
-      localStorage.setItem('mode', 'dark');
-    }
-  });
 
       fileSelect.addEventListener('change', () => {
         const hasValue = fileSelect.value !== '';
