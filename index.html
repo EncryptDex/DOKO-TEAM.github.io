@@ -337,7 +337,8 @@
           <div>Your License:</div>
           <div style="border: 2px solid #fa8b8b; border-radius: 6px; padding: 8px 0; margin-top: 4px; width: 150px; margin-left: auto; margin-right: auto; letter-spacing: 4px; font-size: 1.2rem; user-select: all;" id="tokenValue"></div>
         </div>
-        <img id="qrisImage" src="qris.png" alt="QRIS Payment" style="display:none; max-width: 300px; margin-top: 10px; border-radius: 8px;" />
+        <div id="qrisPrice" style="display:none; margin-top: 10px; font-weight: 700; color: #fa8b8b; font-size: 1.2rem; text-align: center;">RP 40.000</div>
+        <img id="qrisImage" src="qris.png" alt="QRIS Payment" style="display:none; max-width: 300px; margin-top: 6px; border-radius: 8px;" />
         <div id="paymentStatus" style="display:none; margin-top: 8px; font-weight: 600; color: #fa8b8b;">Payment Status: Pending</div>
         <div id="passwordError" class="error-message" role="alert" aria-live="assertive"></div>
         <div class="modal-buttons">
@@ -400,11 +401,15 @@
           modalTitle.textContent = 'Pay For Panel PC External';
           qrisImage.style.display = 'block';
           paymentStatus.style.display = 'block';
+          const qrisPrice = document.getElementById('qrisPrice');
+          qrisPrice.style.display = 'block';
         } else {
           downloadBtn.textContent = 'Download';
           modalTitle.textContent = 'Enter Password to Download';
           qrisImage.style.display = 'none';
           paymentStatus.style.display = 'none';
+          const qrisPrice = document.getElementById('qrisPrice');
+          qrisPrice.style.display = 'none';
         }
       });
 
@@ -426,6 +431,8 @@
             modalTitle.textContent = 'Pay For Panel PC External';
             qrisImage.style.display = 'block';
             paymentStatus.style.display = 'block';
+            const qrisPrice = document.getElementById('qrisPrice');
+            qrisPrice.style.display = 'block';
 
             // Generate random buyer ID
             const randomId = Math.floor(1000000000 + Math.random() * 9000000000);
@@ -442,6 +449,8 @@
             modalTitle.textContent = 'Enter Password to Download';
             qrisImage.style.display = 'none';
             paymentStatus.style.display = 'none';
+            const qrisPrice = document.getElementById('qrisPrice');
+            qrisPrice.style.display = 'none';
             buyerInfo.style.display = 'none';
             const tokenBox = document.getElementById('tokenBox');
             tokenBox.style.display = 'none';
